@@ -13,6 +13,9 @@ MainWindow::~MainWindow()
 
 void MainWindow::initializeGL()
 {
+    vec3 a = {1,0,0}, b = {0,1,0};
+    vec3 c = a.rotated(b, M_PI/2.);
+    qDebug() << c.x << c.y << c.z;
 }
 
 void MainWindow::resizeGL(int w, int h)
