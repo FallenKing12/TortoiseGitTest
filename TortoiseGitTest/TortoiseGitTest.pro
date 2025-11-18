@@ -20,8 +20,7 @@ HEADERS += \
     object.h \
     vec3.h
 
-FORMS += \
-    mainwindow.ui
+FORMS +=
 
 LIBS += -lopengl32 -lglu32
 
