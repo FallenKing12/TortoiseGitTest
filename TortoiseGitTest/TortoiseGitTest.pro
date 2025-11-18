@@ -10,10 +10,15 @@ CONFIG += c++11
 
 SOURCES += \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    object.cpp \
+    vec3.cpp
 
 HEADERS += \
-    mainwindow.h
+    libs.h \
+    mainwindow.h \
+    object.h \
+    vec3.h
 
 FORMS += \
     mainwindow.ui

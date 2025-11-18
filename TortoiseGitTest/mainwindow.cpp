@@ -9,12 +9,10 @@ MainWindow::MainWindow(QWidget *parent)
 
 MainWindow::~MainWindow()
 {
-    delete ui;
 }
 
 void MainWindow::initializeGL()
 {
-
 }
 
 void MainWindow::resizeGL(int w, int h)
