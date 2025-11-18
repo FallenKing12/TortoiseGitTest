@@ -17,31 +17,31 @@ void object::openObj(QString objpath, QString texpath)
     while (1)
     {
         char lineHeader[128];
-        int res = fscanf_s(file, "%s", lineHeader, 3);
+        int res = fscanf(file, "%s", lineHeader, 3);
         if (res == EOF)
             break;
         if (strcmp(lineHeader, "v") == 0)
         {
             float x, y, z;
-            fscanf_s(file, "%g %g %g\n", &x, &y, &z);
+            fscanf(file, "%g %g %g\n", &x, &y, &z);
             this->vertices.push_back({ x, y, z });
         }
         if (strcmp(lineHeader, "vt") == 0)
         {
             float x, y;
-            fscanf_s(file, "%g %g\n", &x, &y);
+            fscanf(file, "%g %g\n", &x, &y);
             this->textures.push_back({ x, y });
         }
         if (strcmp(lineHeader, "vn") == 0)
         {
             float x, y, z;
-            fscanf_s(file, "%g %g %g\n", &x, &y, &z);
+            fscanf(file, "%g %g %g\n", &x, &y, &z);
             this->normals.push_back({ x, y, z });
         }
         if (strcmp(lineHeader, "f") == 0)
         {
             int vertexIndex[3] = {0,0,0}, textureIndex[3] = { 0,0,0 }, normalIndex[3] = { 0,0,0 };
-            fscanf_s(file, "%d/%d/%d %d/%d/%d %d/%d/%d\n", &vertexIndex[0], &textureIndex[0], &normalIndex[0],
+            fscanf(file, "%d/%d/%d %d/%d/%d %d/%d/%d\n", &vertexIndex[0], &textureIndex[0], &normalIndex[0],
                 &vertexIndex[1], &textureIndex[1], &normalIndex[1],
                     &vertexIndex[2], &textureIndex[2], &normalIndex[2]);
             this->vertice_index.push_back(int3(vertexIndex));
