@@ -14,9 +14,8 @@ MainWindow::~MainWindow()
 
 void MainWindow::initializeGL()
 {
-    vec3 a = {1,0,0}, b = {0,1,0};
-    vec3 c = a.rotated(b, M_PI/2.);
-    qDebug() << c.x << c.y << c.z;
+    colt.openObj("D:/TortoiseGitTest/TortoiseGitTest/objects/colt1911.obj", "D:/TortoiseGitTest/TortoiseGitTest/textures/texture.png");
+    colt.size = {0.5, 0.5, 0.5};
 }
 
 void MainWindow::resizeGL(int w, int h)
@@ -46,6 +45,11 @@ void MainWindow::paintGL()
         c.setShape(Qt::BlankCursor);
         setCursor(c);
     }
+
+    glPushMatrix();
+        glTranslated(0, 50, 0);
+        colt.paintObj(0);
+    glPopMatrix();
 
     int a = 10;
     glBegin(GL_QUADS);

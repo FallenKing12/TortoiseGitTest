@@ -82,6 +82,8 @@ void object::paintObj(double angle)
 
         glTexCoord2d(this->textures.at(this->texture_index[i].data[0]-1).x(),
                     -this->textures.at(this->texture_index[i].data[0]-1).y());
+
+        // Нужно бы сделать через буферы вершин, а не через это доисторическое посмешище
         glVertex3d( this->vertices.at(this->vertice_index[i].data[0]-1).x(),
                     this->vertices.at(this->vertice_index[i].data[0]-1).y(),
                     this->vertices.at(this->vertice_index[i].data[0]-1).z());
