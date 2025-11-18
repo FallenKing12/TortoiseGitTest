@@ -5,6 +5,7 @@ MainWindow::MainWindow(QWidget *parent)
     : QOpenGLWidget(parent)
     , ui(new Ui::MainWindow)
 {
+    this->setMouseTracking(true);
 }
 
 MainWindow::~MainWindow()
@@ -33,7 +34,18 @@ void MainWindow::paintGL()
 
     gluPerspective(45.0f, (float)100 / (float)100, 0.1f, 10000.0f);
 
-    gluLookAt(0, 100, 1, 0, 1, 0, 0, 1, 0);
+    gluLookAt(camPos.x, camPos.y, camPos.z, camPos.x + camDir.x, camPos.y + camDir.y, camPos.z + camDir.z, 0, 1, 0);
+
+    if (AppActive)
+    {
+        QCursor c = cursor();
+        if (this->isActiveWindow())
+        {
+            c.setPos(mapToGlobal(QPoint(width() / 2, height() / 2)));
+        }
+        c.setShape(Qt::BlankCursor);
+        setCursor(c);
+    }
 
     int a = 10;
     glBegin(GL_QUADS);
@@ -72,5 +84,63 @@ void MainWindow::paintGL()
         glVertex3d(-a,0,a);
 
         glEnd();
+}
+
+void MainWindow::keyPressEvent(QKeyEvent *ke)
+{
+    switch (ke->key())
+    {
+        case (Qt::Key_W):
+        camPos = camPos + camDir;
+        break;
+        case (Qt::Key_S):
+        camPos = camPos - camDir;
+        break;
+        case (Qt::Key_A):
+        camPos = camPos - vec3{camDir.x, 0, camDir.z}.rotated({0, 1, 0}, M_PI / 2);
+        break;
+        case (Qt::Key_D):
+        camPos = camPos + vec3{camDir.x, 0, camDir.z}.rotated({0, 1, 0}, M_PI / 2);
+        break;
+
+        case (Qt::Key_Space):
+        camPos = camPos + vec3{0, 1, 0};
+        break;
+        case (Qt::Key_Shift):
+        camPos = camPos - vec3{0, 1, 0};
+        break;
+
+        case (Qt::Key_Escape):
+            if (AppActive)
+                AppActive = false;
+            else
+                qApp->quit();
+            break;
+    }
+
+
+    update();
+}
+
+void MainWindow::mousePressEvent(QMouseEvent *me)
+{
+    if (!AppActive)
+        AppActive = true;
+
+    update();
+}
+
+void MainWindow::mouseMoveEvent(QMouseEvent *me)
+{
+    if (AppActive)
+    {
+        double dx = (me->pos().x() - this->width() / 2) * 0.001;
+        double dy = (me->pos().y() - this->height() / 2) * 0.001;
+
+        camDir.rotate({0, 1, 0}, dx);
+        camDir.rotate(camDir * (camDir + vec3{0, 1, 0}), dy);
+    }
+
+    update();
 }
 

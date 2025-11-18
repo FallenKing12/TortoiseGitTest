@@ -19,6 +19,14 @@ public:
     void resizeGL(int w, int h);
     void paintGL();
 
+    vec3 camPos = {0, 0, 0};
+    vec3 camDir = {1, 0, 0};
+    bool AppActive = true;
+
+    void keyPressEvent(QKeyEvent * ke);
+    void mousePressEvent(QMouseEvent * me);
+    void mouseMoveEvent(QMouseEvent * me);
+
 private:
     Ui::MainWindow *ui;
 };

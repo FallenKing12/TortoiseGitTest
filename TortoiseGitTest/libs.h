@@ -13,5 +13,8 @@
 #include <QOpenGLTexture>
 #include <vec3.h>
 #include <QDebug>
+#include <QKeyEvent>
+#include <QMouseEvent>
+#include <QCursor>
 
 #endif // LIBS_H
