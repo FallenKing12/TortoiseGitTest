@@ -3,6 +3,8 @@
 
 #include <libs.h>
 
+#include <object.h>
+
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
@@ -26,6 +28,8 @@ public:
     void keyPressEvent(QKeyEvent * ke);
     void mousePressEvent(QMouseEvent * me);
     void mouseMoveEvent(QMouseEvent * me);
+
+    object colt;
 
 private:
     Ui::MainWindow *ui;
